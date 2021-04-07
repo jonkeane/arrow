@@ -140,11 +140,9 @@ fi
 
 popd
 
-ldconfig -p
-
-echo $(pkg-config --cflags --silence-errors arrow)
-echo $(pkg-config --libs-only-l --silence-errors arrow)
-echo $(pkg-config --libs-only-L --silence-errors)
+if [ -x "$(command -v ldconfig)" ]; then
+  ldconfig
+fi
 
 if [ "${ARROW_USE_CCACHE}" == "ON" ]; then
     echo -e "===\n=== ccache statistics after build\n==="

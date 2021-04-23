@@ -30,6 +30,10 @@ if [ "$ARROW_USE_PKG_CONFIG" != "false" ]; then
   export LD_LIBRARY_PATH=${ARROW_HOME}/lib:${LD_LIBRARY_PATH}
   export R_LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
 fi
+
+unset LD_LIBRARY_PATH
+unset R_LD_LIBRARY_PATH
+
 export _R_CHECK_COMPILATION_FLAGS_KNOWN_=${ARROW_R_CXXFLAGS}
 if [ "$ARROW_R_DEV" = "TRUE" ]; then
   # These are used in the Arrow C++ build and are not a problem

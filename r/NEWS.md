@@ -17,6 +17,10 @@
   under the License.
 -->
 
+# arrow 4.0.1
+
+* Resolved a few bugs in new string compute kernels (ARROW-12774, ARROW-12670)
+
 # arrow 4.0.0
 
 ## dplyr methods

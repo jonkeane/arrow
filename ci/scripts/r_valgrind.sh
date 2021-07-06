@@ -30,7 +30,7 @@ pushd ${source_dir}/tests
 export TEST_R_WITH_ARROW=TRUE
 # to generate suppression files run:
 # ${R_BIN} --vanilla -d "valgrind --tool=memcheck --leak-check=full --track-origins=yes --gen-suppressions=all --log-file=memcheck.log" -f testtthat.supp
-${R_BIN} --vanilla -d "valgrind --tool=memcheck --leak-check=full --track-origins=yes --suppressions=/${1}/ci/etc/valgrind-cran.supp" -f testthat.R |& tee testthat.out
+${R_BIN} --vanilla -d "valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=/${1}/ci/etc/valgrind-cran.supp" -f testthat.R |& tee testthat.out
 
 # valgrind --error-exitcode=1 should return an erroring exit code that we can catch,
 # but R eats that and returns 0, so we need to look at the output and make sure that

@@ -20,6 +20,11 @@ set -ex
 
 : ${R_BIN:=R}
 
+# If we are on archlinux, we need to install a few of the basics first.
+if type pacman >/dev/null; then
+  pacman --noconfirm -Sy which r make gcc
+fi
+
 # The Dockerfile should have put this file here
 if [ -f "/arrow/ci/etc/rprofile" ]; then
   # Ensure parallel R package installation, set CRAN repo mirror,
@@ -59,6 +64,8 @@ if [ "$ARROW_S3" == "ON" ] || [ "$ARROW_R_DEV" == "TRUE" ]; then
     yum install -y libcurl-devel openssl-devel
   elif [ "`which zypper`" ]; then
     zypper install -y libcurl-devel libopenssl-devel
+    elif [ "`which pacman`" ]; then
+    pacman --noconfirm -Sy curl openssl
   else
     apt-get update
     apt-get install -y libcurl4-openssl-dev libssl-dev

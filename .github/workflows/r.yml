@@ -118,6 +118,7 @@ jobs:
         config:
           - { org: "rstudio", image: "r-base", tag: "4.0-centos7" }
           - { org: "rhub", image: "debian-gcc-devel", tag: "latest" }
+          - { org: "archlinux", image: "archlinux", tag: "latest" }
     env:
       R_ORG: ${{ matrix.config.org }}
       R_IMAGE: ${{ matrix.config.image }}

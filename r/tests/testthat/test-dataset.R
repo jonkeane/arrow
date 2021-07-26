@@ -972,7 +972,7 @@ test_that("Dataset [ (take by index)", {
     as.data.frame(ds2[c(2, 5), ]),
     rbind(
       df1[8, c("int", "lgl")],
-      df2[1,c("int","lgl")]
+      df2[1, c("int", "lgl")]
     )
   )
 })

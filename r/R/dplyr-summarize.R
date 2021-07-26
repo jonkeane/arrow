@@ -27,8 +27,8 @@ summarise.arrow_dplyr_query <- function(.data, ...) {
   exprs <- quos(...)
   # Only retain the columns we need to do our aggregations
   vars_to_keep <- unique(c(
-    unlist(lapply(exprs, all.vars)),     # vars referenced in summarise
-    dplyr::group_vars(.data)             # vars needed for grouping
+    unlist(lapply(exprs, all.vars)), # vars referenced in summarise
+    dplyr::group_vars(.data) # vars needed for grouping
   ))
   .data <- dplyr::select(.data, vars_to_keep)
   dplyr::summarise(dplyr::collect(.data), ...)

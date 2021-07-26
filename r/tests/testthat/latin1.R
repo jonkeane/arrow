@@ -15,11 +15,14 @@
 # specific language governing permissions and limitations
 # under the License.
 
-x <- iconv("Veitingastaðir", to = "latin1")
+x <- iconv("Veitingasta?ir", to = "latin1")
 df <- tibble::tibble(
   chr = x,
   fct = as.factor(x)
 )
+
+
+
 names(df) <- iconv(paste(x, names(df), sep = "_"), to = "latin1")
 df_struct <- tibble::tibble(a = df)
 

@@ -44,4 +44,4 @@ $CPP_BUILD_SUPPORT/run_cpplint.py \
 echo "GITHUB_ACTIONS"
 echo $GITHUB_ACTIONS
 R -e "if(!requireNamespace('lintr', quietly=TRUE)){stop('lintr is not installed, please install it with R -e \"install.packages(\'lintr\')\"')}"
-NOT_CRAN=true R -e "lintr::lint_package('${SOURCE_DIR}')"
+NOT_CRAN=true GITHUB_ACTIONS=$GITHUB_ACTIONS R -e "lintr::lint_package('${SOURCE_DIR}')"

@@ -63,7 +63,7 @@ RUN cat /arrow/ci/etc/rprofile >> $(R RHOME)/etc/Rprofile.site
 # Also ensure parallel compilation of C/C++ code
 RUN echo "MAKEFLAGS=-j$(R -s -e 'cat(parallel::detectCores())')" >> $(R RHOME)/etc/Makeconf
 
-RUN R -e "install.packages('remotes'); remotes::install_github('jimhester/lintr')"
+RUN R -e "install.packages('remotes'); remotes::install_github('jonkeane/lintr@arrow-branch')"
 
 # Docker linter
 COPY --from=hadolint /bin/hadolint /usr/bin/hadolint

@@ -845,11 +845,11 @@ See $.data for the source Arrow object",
     arranged %>%
       collect(),
     rbind(
-      df1[8, c("chr", "dbl", "int")],
-      df2[2, c("chr", "dbl", "int")],
-      df1[9, c("chr", "dbl", "int")],
-      df2[1, c("chr", "dbl", "int")],
-      df1[10, c("chr", "dbl", "int")]
+      df1[8,c("chr", "dbl", "int")],
+      df2[2,c("chr", "dbl", "int")],
+      df1[9,c("chr", "dbl", "int")],
+      df2[1,c("chr", "dbl", "int")],
+      df1[10,c("chr", "dbl", "int")]
     ) %>%
       mutate(
         twice = int * 2

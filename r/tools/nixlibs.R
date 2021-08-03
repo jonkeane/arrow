@@ -317,6 +317,15 @@ build_libarrow <- function(src_dir, dst_dir) {
     # tools::Rcmd introduced R 3.3
     tools::Rcmd(paste("config", var), stdout = TRUE)
   }
+
+  arrow_r_cxxflags <- Sys.getenv("ARROW_R_CXXFLAGS", "")
+
+  cat("************ Checking if LTO should be disabled, the LTO value is: ", R_CMD_config("LTO"))
+  if (R_CMD_config("LTO") == "") {
+    cat("************ Disabling LTO")
+    arrow_r_cxxflags <- paste(arrow_r_cxxflags, "-fno-lto")
+  }
+
   env_var_list <- c(
     SOURCE_DIR = src_dir,
     BUILD_DIR = build_dir,
@@ -326,7 +335,7 @@ build_libarrow <- function(src_dir, dst_dir) {
     CC = R_CMD_config("CC"),
     CXX = paste(R_CMD_config("CXX11"), R_CMD_config("CXX11STD")),
     # CXXFLAGS = R_CMD_config("CXX11FLAGS"), # We don't want the same debug symbols
-    ARROW_R_CXXFLAGS = paste(Sys.getenv("ARROW_R_CXXFLAGS", ""), "-fno-lto"),
+    ARROW_R_CXXFLAGS = arrow_r_cxxflags,
     LDFLAGS = R_CMD_config("LDFLAGS")
   )
   env_vars <- paste0(names(env_var_list), '="', env_var_list, '"', collapse = " ")

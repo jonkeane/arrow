@@ -251,7 +251,17 @@ if [ $? -eq 0 ] || [ "$UNAME" = "Darwin" ]; then
     fi
   fi
   # prepend PKG_DIRS and append BUNDLED_LIBS to PKG_LIBS
-  PKG_LIBS="$PKG_DIRS $PKG_LIBS $BUNDLED_LIBS -fno-lto"
+  PKG_LIBS="$PKG_DIRS $PKG_LIBS $BUNDLED_LIBS"
+
+  # If R has not been built with LTO, then we need to add -fno-lto
+  echo "******** checking if LTO needs to be disabled"
+  R_CONFIG_LTO=`"${R_HOME}"/bin/R CMD config LTO`
+  echo "******** The R CMD config LTO value is $R_CONFIG_LTO"
+  if [ "$R_CONFIG_LTO" = "" ]; then
+    echo "******** disabling LTO"
+    PKG_LIBS="$PKG_LIBS  -fno-lto"
+  fi
+
   echo "PKG_CFLAGS=$PKG_CFLAGS"
   echo "PKG_LIBS=$PKG_LIBS"
 else

@@ -797,7 +797,7 @@ test_that("strftime", {
 
 test_that("format_ISO8601", {
   skip_on_os("windows") # https://issues.apache.org/jira/browse/ARROW-13168
-  times <- tibble(x = c(lubridate::ymd_hms("2018-10-07 19:04:05", tz = "Etc/GMT+6"), NA))
+  times <- tibble(x = c(lubridate::ymd_hms("2018-10-07 19:04:05", tz = "Pacific/Marquesas"), NA))
 
   expect_dplyr_equal(
     input %>%

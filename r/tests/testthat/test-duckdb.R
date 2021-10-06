@@ -18,6 +18,52 @@
 skip_if_not_installed("duckdb", minimum_version = "0.2.8")
 skip_if_not_installed("dbplyr")
 skip_if_not_available("dataset")
+
+library(duckdb)
+library(dplyr)
+
+test_that("to_duckdb", {
+  ds <- InMemoryDataset$create(example_data)
+
+  expect_identical(
+    ds %>%
+      to_duckdb() %>%
+      collect() %>%
+      # factors don't roundtrip
+      select(!fct),
+    select(example_data, !fct)
+  )
+
+  expect_identical(
+    ds %>%
+      select(int, lgl, dbl) %>%
+      to_duckdb() %>%
+      group_by(lgl) %>%
+      summarise(mean_int = mean(int, na.rm = TRUE), mean_dbl = mean(dbl, na.rm = TRUE)) %>%
+      collect(),
+    tibble::tibble(
+      lgl = c(TRUE, NA, FALSE),
+      mean_int = c(3, 6.25, 8.5),
+      mean_dbl = c(3.1, 6.35, 6.1)
+    )
+  )
+
+  # can group_by before the to_duckdb
+  expect_identical(
+    ds %>%
+      select(int, lgl, dbl) %>%
+      group_by(lgl) %>%
+      to_duckdb() %>%
+      summarise(mean_int = mean(int, na.rm = TRUE), mean_dbl = mean(dbl, na.rm = TRUE)) %>%
+      collect(),
+    tibble::tibble(
+      lgl = c(TRUE, NA, FALSE),
+      mean_int = c(3, 6.25, 8.5),
+      mean_dbl = c(3.1, 6.35, 6.1)
+    )
+  )
+})
+
 skip_on_cran()
 
 library(duckdb)

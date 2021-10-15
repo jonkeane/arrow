@@ -53,10 +53,11 @@ export AWS_EC2_METADATA_DISABLED=TRUE
 # Set crancache dir so we can cache it
 export CRANCACHE_DIR="/arrow/.crancache"
 
+echo "remotes::install_github('r-lib/revdepcheck')" | ${R_BIN} --no-save
+
 SCRIPT="
     # We can't use RSPM binaries because we need source packages
     options('repos' = c(CRAN = 'https://packagemanager.rstudio.com/all/latest'))
-    remotes::install_github('r-lib/revdepcheck')
 
     # zoo is needed by RcisTarget tests, though only listed in enhances so not installed by revdepcheck
     install.packages('zoo')

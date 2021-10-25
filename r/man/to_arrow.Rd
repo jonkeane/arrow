@@ -4,7 +4,7 @@
 \alias{to_arrow}
 \title{Create an Arrow object from others}
 \usage{
-to_arrow(.data)
+to_arrow(.data, batch_multiplier = 100)
 }
 \arguments{
 \item{.data}{the object to be converted}

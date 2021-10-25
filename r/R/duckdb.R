@@ -141,7 +141,7 @@ duckdb_disconnector <- function(con, tbl_name) {
 #'   summarize(mean_mpg = mean(mpg, na.rm = TRUE)) %>%
 #'   to_arrow() %>%
 #'   collect()
-to_arrow <- function(.data) {
+to_arrow <- function(.data, batch_multiplier = 100) {
   # If this is an Arrow object already, return quickly since we're already Arrow
   if (inherits(.data, c("arrow_dplyr_query", "ArrowObject"))) {
     return(.data)
@@ -161,5 +161,5 @@ to_arrow <- function(.data) {
   res <- DBI::dbSendQuery(dbplyr::remote_con(.data), dbplyr::remote_query(.data), arrow = TRUE)
 
   # TODO: we shouldn't need $read_table(), but we get segfaults when we do.
-  arrow_dplyr_query(duckdb::duckdb_fetch_record_batch(res))
+  arrow_dplyr_query(duckdb::duckdb_fetch_record_batch(res, batch_multiplier))
 }

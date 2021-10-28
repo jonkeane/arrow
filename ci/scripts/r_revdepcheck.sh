@@ -53,6 +53,8 @@ export AWS_EC2_METADATA_DISABLED=TRUE
 # Set crancache dir so we can cache it
 export CRANCACHE_DIR="/arrow/.crancache"
 
+echo "remotes::install_github('r-lib/cli')" | ${R_BIN} --no-save
+
 SCRIPT="
     # We can't use RSPM binaries because we need source packages
     options('repos' = c(CRAN = 'https://packagemanager.rstudio.com/all/latest'))

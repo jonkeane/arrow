@@ -20,9 +20,10 @@
 {{ macros.github_header() }}
 
 jobs:
-  r-versions:
+  r-revdepcheck:
     name: "rstudio/r-base:latest-focal"
     runs-on: ubuntu-latest
+    timeout-minutes: 600
     strategy:
       fail-fast: false
     env:

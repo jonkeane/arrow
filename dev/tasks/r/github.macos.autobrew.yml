@@ -61,6 +61,9 @@ jobs:
       - name: Dump test logs
         run: cat arrow/r/check/arrow.Rcheck/tests/testthat.Rout*
         if: always()
+      - name: Dump example logs
+        run: cat arrow/r/check/arrow.Rcheck/arrow-Ex.Rout*
+        if: always()
       - name: Save the test output
         if: always()
         uses: actions/upload-artifact@v2
